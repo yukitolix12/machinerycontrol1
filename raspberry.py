@@ -21,3 +21,15 @@ def main_loop():
         GPIO.output(CONTROL_PIN, GPIO.LOW)  # OFFにする
         print("機器を停止中...")
         time.sleep(1.0)
+
+if __name__ == "__main__":
+    try:
+        setup()
+        main_loop()
+    except KeyboardInterrupt:
+        # Ctrl+C が押された時の処理
+        print("\nユーザーにより中断されました。")
+    finally:
+        # ④ 終了処理（これを忘れるとピンがONのまま残り、危険な場合がある）
+        GPIO.cleanup()
+        print("ピンを解放し、安全に終了しました。")
